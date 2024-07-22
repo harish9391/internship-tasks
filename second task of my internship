@@ -1,0 +1,56 @@
+
+import sounddevice
+from scipy.io.wavfile import write
+from tkinter import*
+from tkinter.messagebox import showinfo, showwarning
+from tkinter.filedialog import askdirectory
+
+def file_path():
+    add = askdirectory()
+    return add
+
+def save_file(add):
+    try:
+        time = int(sec.get())
+        addr = add+"/"+"demo.wav"
+        
+        showinfo(title="start", message="rec started")
+        rece = sounddevice.rec(int(time*44100), samplerate=44100, channels=2)
+        sounddevice.wait()
+        write(addr, 44100, rece)
+        showinfo(title="end",message="rec ended")
+        
+    except ValueError:
+        showwarning(title="Time",message="Invalid time format")
+        
+    except Exception as e:
+        showwarning(title="Error",message=str(e))
+
+def main_window():
+    global sec
+    win = Tk()
+    win.geometry("500x600")
+    win.resizable(False,False)
+    win.title("recoder")
+    win.config(bg="red")
+    
+    imag1 = PhotoImage(file="7.png")
+    l1 =Label(win,image=imag1)
+    l1.place(x=100,y=20,height=200,width=300)
+    
+    sec = Entry(win,font=(20))
+    sec.place(x=150,y=250, height=50,width=200)
+    l2 = Label(win,text="Time in sec.",font=("Time New Roman",20),background="red")
+    l2.place(x=50, y=200, height=50, width=400)
+    
+    b = Button(win, text="Path",font=("Time New Roman",20),command=lambda: save_file(file_path()))
+    b.place(x=150,y=320,height=50,width=200)
+    
+    imag2 = PhotoImage(file="images.png")
+    start = Button(win,image=imag2,command=lambda: save_file(file_path()))
+    start.place(x=140,y=410,height=180,width=250)
+    
+    win.mainloop()
+    return win
+
+win = main_window()
