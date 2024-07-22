@@ -1,0 +1,28 @@
+from tkinter import*
+root = Tk()
+root.geometry("300x100")
+def reciept():
+    top = Toplevel()
+    top.geometry("300x100")
+    top.config(background="white")
+    price1 = 100
+    qty1 = 2
+    total1 = price1*qty1
+    price2 = 200
+    qty2 = 1
+    total2 = price2*qty2
+    l = Label(top,text="---------RECIEPT---------")
+    l.pack()
+    l.config(background="white")
+    heading =Label(top,text="PRICE\tQTY\tTOTAL")
+    heading.pack()
+    heading.config(background="white")
+    item1 = Label(top,text=f"{price1}\t{qty1}\t{total1}")
+    item1.pack()
+    item1.config(bg = "white")
+    item2 = Label(top,text=f"{price2}\t{qty2}\t{total2}")
+    item2.pack()
+    item2.config(bg = "white")
+b = Button(root,text="print reciept", command=reciept)
+b.pack(padx=10,pady=10)
+root.mainloop()
